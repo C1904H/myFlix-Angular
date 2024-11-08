@@ -1,0 +1,19 @@
+<!-- src/app/synopsis/synopsis.component.html -->
+<mat-card class="summary-dialog">
+  <button
+    class="summary-close-button"
+    mat-stroked-button
+    aria-label="Close the summary button"
+    mat-dialog-close
+    color="primary"
+  >
+    X
+  </button>
+  <mat-card-title>
+    <h2 class="summary-dialog-title">{{ data.Title }}</h2>
+  </mat-card-title>
+  <mat-dialog-content class="summary-dialog-content">
+    <b>Description: </b>{{ data.Description }}
+  </mat-dialog-content>
+</mat-card>
+

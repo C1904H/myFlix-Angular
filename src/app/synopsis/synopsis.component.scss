@@ -1,0 +1,16 @@
+// src/app/synopis/synopsis.component.scss
+.summary-dialog-content {
+  color: #333366;
+}
+
+.summary-close-button {
+  width: fit-content;
+  align-self: flex-end;
+  margin: 0;
+  padding: 0;
+}
+
+.summary-dialog-title {
+  margin: 0;
+  padding-left: 1.25rem;
+}

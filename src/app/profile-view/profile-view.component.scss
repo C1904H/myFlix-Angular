@@ -1,0 +1,35 @@
+// src/app/profile-view/profile-view.component.scss
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000080;
+}
+
+h2 {
+  text-align: center;
+  padding-top: 30px;
+  color: #000080;
+}
+
+.movie-card {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 20px;
+  margin: 10px;
+  size: 50%;
+}
+
+// .heart-icon {
+//   flex-grow: 6;
+//   text-align: end;
+// }
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

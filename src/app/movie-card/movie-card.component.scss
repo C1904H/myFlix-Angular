@@ -1,0 +1,31 @@
+// src/app/movie-card/movie-card.component.scss
+mat-card-title{
+  font-size: 18px;
+  font-style: bold;
+  margin-bottom: 5px;
+}
+
+mat-card-subtitle{
+  margin-bottom: 5px;
+}
+
+mat-card-icon{
+  //ADD CODE TO GROW WHEN CLICKED
+}
+
+.mat-card {
+  flex: 1 1 auto;
+  justify-content: space-between;
+ 
+}
+
+.movies-view {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping of movie cards */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 15px; /* Adjust the gap between cards */
+}
+
+button {
+  font-size: 17px;
+}

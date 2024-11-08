@@ -1,0 +1,18 @@
+// src/app/welcome-page/welcome-page.component.scss
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adds space between buttons */
+}
+
+div {
+  display: flex;
+  justify-content: center; 
+}
