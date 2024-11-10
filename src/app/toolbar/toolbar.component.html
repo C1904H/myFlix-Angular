@@ -3,24 +3,7 @@
   <span>MyFlix App</span>
   <span class="spacer"></span>
   <span class="spacer"></span>
-  <!-- <button
-    mat-button
-    [class.active]="isOnMoviesRoute()"
-    (click)="navigateToMovies()"
-  >
-    Movies
-  </button>
-  <button
-    mat-button
-    [class.active]="isOnProfileRoute()"
-    (click)="navigateToProfile()"
-  >
-    Profile
-  </button> -->
-
-  
   <button mat-button (click)="navigateToMovies()">Movies</button>
     <button mat-button (click)="navigateToProfile()">Profile</button>
-    <button mat-button (click)="navigateToWelcome()">Logout</button>
-    <!-- <button mat-button (click)="logout()" class="logout-button">Logout</button> -->
+    <button class="logout" mat-button (click)="navigateToWelcome()">Logout</button>
 </mat-toolbar>

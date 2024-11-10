@@ -10,9 +10,9 @@
       >
     </mat-card-header>
     <img src="{{ movie.ImagePath }}" alt="{{ movie.Title }}" />
-    
+
     <mat-card-actions>
-        <button
+      <button
         mat-button
         color="primary"
         (click)="openSynopsis(movie.Title, movie.Description)"
@@ -40,23 +40,23 @@
         Director
       </button>
       <button
-              mat-button
-              class="mat-icon-button"
-              *ngIf="!isFavorite(movie._id)"
-              (click)="addToFavorites(movie._id)"
-              color="primary"
-            >
-              <mat-icon>favorite_border</mat-icon>
-            </button>
-            <button
-              mat-button
-              class="mat-flat-button"
-              *ngIf="isFavorite(movie._id)"
-              (click)="removeFromFavorites(movie._id)"
-              color="accent"
-            >
-              <mat-icon>favorite</mat-icon>
-            </button>
+        mat-button
+        class="mat-icon-button"
+        *ngIf="!isFavorite(movie._id)"
+        (click)="addToFavorites(movie._id)"
+        color="primary"
+      >
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button
+        mat-button
+        class="mat-flat-button"
+        *ngIf="isFavorite(movie._id)"
+        (click)="removeFromFavorites(movie._id)"
+        color="accent"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

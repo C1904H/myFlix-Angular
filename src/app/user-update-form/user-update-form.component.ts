@@ -10,9 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-user-update-form',
   templateUrl: './user-update-form.component.html',
-  styleUrls: ['./user-update-form.component.scss']
+  styleUrls: ['./user-update-form.component.scss'],
 })
-
 export class UserUpdateFormComponent implements OnInit {
   // movies: any[] = [];
   user: any = {};
@@ -29,12 +28,11 @@ export class UserUpdateFormComponent implements OnInit {
     public dialogRef: MatDialogRef<UserUpdateFormComponent>,
     public snackBar: MatSnackBar,
     public fetchApiData: FetchApiDataService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getUser();
-
   }
 
   // Fetch user data via API

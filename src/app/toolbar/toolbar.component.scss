@@ -1,5 +1,22 @@
 // src/app/toolbar/toolbar.component.scss
 
+.mat-toolbar {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
 .spacer {
   flex: 1 1 auto;
+} 
+
+button {
+  font-size: 16px;
+}
+
+button:focus {
+  color: #ffff00;
+}
+
+.logout {
+  color: #ff7373 !important;
 }

@@ -1,12 +1,23 @@
 // src/app/profile-view/profile-view.component.scss
 h1 {
-  text-align: center;
   margin-bottom: 20px;
   color: #000080;
 }
 
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+button {
+font-size: 16px;
+}
+
 h2 {
-  text-align: center;
   padding-top: 30px;
   color: #000080;
 }
@@ -15,21 +26,26 @@ h2 {
   display: inline-flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 10px;
-  padding: 20px;
   margin: 10px;
-  size: 50%;
+  max-width: 264px;
+  max-height: 510px;
 }
 
-// .heart-icon {
-//   flex-grow: 6;
-//   text-align: end;
-// }
-
-.info-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+mat-card-title {
+  font-size: 20px;
+  font-weight: 450;
 }
+
+img {
+  max-width: 264x;
+  max-height: 350px;
+}
+.fav-movies {
+  margin-left: 20px;
+}
+
+button {
+  font-size: 15px;
+}
+
 

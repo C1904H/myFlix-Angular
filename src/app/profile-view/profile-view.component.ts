@@ -19,11 +19,10 @@ import { DirectorComponent } from '../director/director.component';
 export class ProfileViewComponent implements OnInit {
   movies: any[] = [];
   user: any = {};
-  Username: string = '';
   initialInput: any = {};
   favoriteMovies: any[] = [];
   favorites: any[] = [];
-  
+
   @Input() userData = {
     Username: '',
     Password: '',
@@ -32,7 +31,7 @@ export class ProfileViewComponent implements OnInit {
   };
   openUserUpdateDialog(): void {
     this.dialog.open(UserUpdateFormComponent, {
-      width: '280px'
+      width: '280px',
     });
   }
 
@@ -41,12 +40,11 @@ export class ProfileViewComponent implements OnInit {
     public dialogRef: MatDialogRef<ProfileViewComponent>,
     public snackBar: MatSnackBar,
     public fetchApiData: FetchApiDataService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getUser();
-
   }
 
   // Fetch user data via API
@@ -65,9 +63,11 @@ export class ProfileViewComponent implements OnInit {
         'UTC+0'
       );
       this.fetchApiData.getAllMovies().subscribe((response: any) => {
-        this.favoriteMovies = response.filter((m: { _id: any }) => this.user.FavoriteMovies.indexOf(m._id) >= 0)
-    })
-  })
+        this.favoriteMovies = response.filter(
+          (m: { _id: any }) => this.user.FavoriteMovies.indexOf(m._id) >= 0
+        );
+      });
+    });
   }
 
   // Fetch delete user via API
@@ -85,15 +85,15 @@ export class ProfileViewComponent implements OnInit {
   }
 
   // Open movie details from SynopsisComponent
-openSynopsis(title: string, description: string): void {
-  this.dialog.open(SynopsisComponent, {
-    data: {
-      Title: title,
-      Description: description,
-    },
-    width: '400px',
-  });
-}
+  openSynopsis(title: string, description: string): void {
+    this.dialog.open(SynopsisComponent, {
+      data: {
+        Title: title,
+        Description: description,
+      },
+      width: '400px',
+    });
+  }
 
   // Open genre information from GenreComponent
   openGenre(name: string, description: string): void {
@@ -106,66 +106,68 @@ openSynopsis(title: string, description: string): void {
     });
   }
 
-    // Open director information from DirectorComponent
-    openDirector(name: string, bio: string, birthday: string): void {
-      this.dialog.open(DirectorComponent, {
-        data: {
-          Name: name,
-          Bio: bio,
-          Birth: birthday,
-        },
-        width: '400px',
-      });
-    }
+  // Open director information from DirectorComponent
+  openDirector(name: string, bio: string, birthday: string): void {
+    this.dialog.open(DirectorComponent, {
+      data: {
+        Name: name,
+        Bio: bio,
+        Birth: birthday,
+      },
+      width: '400px',
+    });
+  }
 
-    getFavorites(): void {
-      this.fetchApiData.getUser().subscribe(
-        (resp: any) => {
-          if (resp.user && resp.user.FavoriteMovies) {
-            this.favorites = resp.user.FavoriteMovies;
-          } else {
-            this.favorites = []; // Set an empty array if data is not available
-          }
-        },
-        (error: any) => {
-          console.error('Error fetching user data:', error);
-          this.favorites = []; // Set an empty array on error as well
+  getFavorites(): void {
+    this.fetchApiData.getUser().subscribe(
+      (resp: any) => {
+        if (resp.user && resp.user.FavoriteMovies) {
+          this.favorites = resp.user.FavoriteMovies;
+        } else {
+          this.favorites = []; // Set an empty array if data is not available
         }
+      },
+      (error: any) => {
+        console.error('Error fetching user data:', error);
+        this.favorites = []; // Set an empty array on error as well
+      }
+    );
+  }
+
+  isFavorite(id: string): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.FavoriteMovies.indexOf(id) >= 0;
+  }
+
+  addToFavorites(id: string): void {
+    this.fetchApiData.addToFavorites(id).subscribe((resp: any) => {
+      const user = JSON.parse(localStorage.getItem('user') || '');
+
+      user.FavoriteMovies.push(id); // Update local favoriteMovies array
+      localStorage.setItem('user', JSON.stringify(user));
+      this.favorites.push(id);
+      this.snackBar.open('Movie added to favorites', 'OK', {
+        duration: 2000,
+      });
+      this.ngOnInit();
+    });
+  }
+
+  removeFromFavorites(id: string): void {
+    this.fetchApiData.removeFromFavorites(id).subscribe((resp: any) => {
+      // update FavoriteMovies in the local storage
+      const user = JSON.parse(localStorage.getItem('user') || '');
+      user.FavoriteMovies = user.FavoriteMovies.filter(
+        (movieId: string) => movieId !== id
       );
-    }
-
-    isFavorite(movieID: string): boolean {
-      const localStorageUser = localStorage.getItem('user');
-      const user = localStorageUser ? JSON.parse(localStorageUser): undefined;
-      return user.FavoriteMovies.indexOf(movieID) >= 0;
-    }
-
-    addToFavorites(ID: string): void {
-      console.log(ID);
-      this.fetchApiData.addToFavorites(ID).subscribe((result) => {
-        this.snackBar.open('Movie added to favorites', 'OK', {
-          duration: 2000,
-        });
-        this.ngOnInit();
+      localStorage.setItem('user', JSON.stringify(user));
+      this.favorites = this.favorites.filter(
+        (movieId: string) => movieId !== id
+      );
+      this.snackBar.open('Movie removed from favorites', 'OK', {
+        duration: 2000,
       });
-    }
-
-    removeFromFavorites(id: string): void {
-      console.log(id);
-      this.fetchApiData.removeFromFavorites(id).subscribe(() => {
-        this.snackBar.open('Movie removed from favorites', 'OK', {
-          duration: 2000,
-        });
-        this.ngOnInit();
-        // const username = localStorage.getItem('Username');
-        // if (username !== null) {
-        //   // Fetch the updated favorite movies data
-        //   this.fetchApiData.getFavoriteMovies(username).subscribe((favorites: any) => {
-        //     this.favorites = favorites;
-        //   });
-        // }  
-      });
-    }
-
-  
+      this.ngOnInit();
+    });
+  }
 }

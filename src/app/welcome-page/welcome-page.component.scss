@@ -1,6 +1,6 @@
 // src/app/welcome-page/welcome-page.component.scss
 .main-page {
-  display: flex;
+  display: flexbox;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -14,5 +14,39 @@
 
 div {
   display: flex;
-  justify-content: center; 
+}
+
+h1 {
+  font-size: 50px;
+  text-align: center;
+}
+
+button {
+  font-size: 25px;
+  padding: 30px;
+}
+
+/* Media query for screens smaller than 500px */
+@media only screen and (max-width: 500px) {
+  h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  button {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+}
+
+/* Media query for screens larger than 500px */
+@media only screen and (min-width: 500px) and (max-width: 768px) {
+  h1 {
+    font-size: 60px;
+  }
+
+  button {
+    margin-bottom: 10px;
+    font-size: 25px;
+  }
 }
