@@ -11,6 +11,11 @@ import { SynopsisComponent } from '../synopsis/synopsis.component';
 import { GenreComponent } from '../genre/genre.component';
 import { DirectorComponent } from '../director/director.component';
 
+/**
+ * Component to display, edit and delete user profile information.
+ * @class ProfileViewComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -29,12 +34,22 @@ export class ProfileViewComponent implements OnInit {
     Email: '',
     Birthday: '',
   };
+  /** Opens UserUpdateFormComponenet */
   openUserUpdateDialog(): void {
     this.dialog.open(UserUpdateFormComponent, {
       width: '280px',
     });
   }
 
+  /**
+   * Creates an instance of ProfileViewComponent.
+   *
+   * @param {MatDialog} dialog - Service for opening modal dialog.
+   * @param {MatDialogRef} dialogRef - Reference to the MatDialogRef for the component.
+   * @param {MatSnackBar} snackBar - Service for displaying notifications.
+   * @param {FetchApiDataService} fetchApiData - Service to fetch user and movie data.
+   * @param {Router} router - Service for navigation.
+   */
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ProfileViewComponent>,
@@ -43,11 +58,14 @@ export class ProfileViewComponent implements OnInit {
     private router: Router
   ) {}
 
+  /** Lifecycle hook called after the component is initialized. */
   ngOnInit(): void {
     this.getUser();
   }
 
-  // Fetch user data via API
+  /**
+   * Fetches user information from API
+   */
   getUser(): void {
     this.fetchApiData.getUser().subscribe((response: any) => {
       console.log(response);
@@ -70,7 +88,10 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-  // Fetch delete user via API
+  /**
+   * Opens a confirmation dialog to continue to delete the user account.
+   * If confirmed, deletes the user account and logs out.
+   */
   deleteUser(): void {
     if (confirm('Are you sure you want to delete account? Cannot be undone!')) {
       this.router.navigate(['welcome']).then(() => {
@@ -84,7 +105,9 @@ export class ProfileViewComponent implements OnInit {
     }
   }
 
-  // Open movie details from SynopsisComponent
+  /**
+   *  Open movie details from SynopsisComponent
+   */
   openSynopsis(title: string, description: string): void {
     this.dialog.open(SynopsisComponent, {
       data: {
@@ -95,7 +118,9 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-  // Open genre information from GenreComponent
+  /**
+   * Open genre information from GenreComponent
+   */
   openGenre(name: string, description: string): void {
     this.dialog.open(GenreComponent, {
       data: {
@@ -106,7 +131,9 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-  // Open director information from DirectorComponent
+  /**
+   * Open director information from DirectorComponent
+   */
   openDirector(name: string, bio: string, birthday: string): void {
     this.dialog.open(DirectorComponent, {
       data: {
@@ -118,6 +145,9 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches user's favorite movies.
+   */
   getFavorites(): void {
     this.fetchApiData.getUser().subscribe(
       (resp: any) => {
@@ -134,11 +164,21 @@ export class ProfileViewComponent implements OnInit {
     );
   }
 
+  /**
+   * Checks if a specific movie is a favorite.
+   *
+   * @param {string} id - The id of the movie to check.
+   * @returns {boolean} - True if the movie is a favorite; otherwise, false.
+   */
   isFavorite(id: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.FavoriteMovies.indexOf(id) >= 0;
   }
 
+  /**
+   * Adds a movie to user's favorites.
+   * @param {string} id - The id of movie to add.
+   */
   addToFavorites(id: string): void {
     this.fetchApiData.addToFavorites(id).subscribe((resp: any) => {
       const user = JSON.parse(localStorage.getItem('user') || '');
@@ -153,6 +193,11 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Removes a movie from the user's favorites.
+   *
+   * @param {string} id - The id of the movie to remove.
+   */
   removeFromFavorites(id: string): void {
     this.fetchApiData.removeFromFavorites(id).subscribe((resp: any) => {
       // update FavoriteMovies in the local storage
